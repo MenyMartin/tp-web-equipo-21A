@@ -316,5 +316,57 @@ namespace negocio
                 throw ex;
             }
         }
+
+        public bool checkVoucher(string voucher)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(1) FROM Vouchers WHERE CodigoVoucher = @voucher");
+                datos.setearParametro("@voucher", voucher);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int existe = datos.Lector.GetInt32(0);
+                    if (existe > 0)
+                    {
+                        try
+                        {
+                            datos.cerrarConexion();
+                            datos.abrirConexion();
+                            datos.setearConsulta("select IdCliente from Vouchers where CodigoVoucher = @voucher");
+                            datos.setearParametro("@voucher", voucher);
+                            datos.ejecutarLectura();
+
+                            if (datos.Lector.Read()){
+                                if (datos.Lector.IsDBNull(datos.Lector.GetOrdinal("IdCliente")))
+                                {
+                                    return true;
+                                }
+                                
+                            }
+                        }
+                        catch (Exception ex )
+                        {
+
+                            Console.WriteLine("Error al verificar ID de cliente del voucher: " + ex.Message);
+                        }
+
+                        finally { datos.cerrarConexion(); }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Error al verificar el voucher: " + ex.Message);
+            }
+
+            finally { datos.cerrarConexion(); }
+            
+            return false;
+        }
     }
 }
