@@ -13,6 +13,7 @@
                     <div class="card-body">
                         <h5 class="card-title"><%:premio.Nombre %></h5>
                         <p class="card-text"><%:premio.Descripcion %></p>
+                        <%Session.Add("id",premio.Id); %>
                     </div>
                     <div class="card-footer">
                          <%-- <asp:Button ID="btnDetalleMochila" runat="server" OnClick="btnDetalle_Click" Text="Ver premio" />--%>

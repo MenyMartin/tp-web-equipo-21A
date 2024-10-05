@@ -22,10 +22,11 @@ namespace PromoWeb
             string voucher = txtVoucher.Text;
             ArticuloNegocio negocio = new ArticuloNegocio();
             bool ok = negocio.checkVoucher(voucher);
+            Session.Add("voucher", voucher);
 
             if (ok==true)
             {
-                Response.Redirect("EleccionPremio.aspx");
+                Response.Redirect("EleccionPremio.aspx",false);
             }
 
 

@@ -11,7 +11,8 @@ namespace PromoWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            string voucher = Session["voucher"].ToString();
+            int id = int.Parse(Session["id"].ToString());
         }
 
         protected void btnParticipa_Click(object sender, EventArgs e)
