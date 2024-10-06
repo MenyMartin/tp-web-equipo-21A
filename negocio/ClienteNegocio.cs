@@ -28,6 +28,8 @@ namespace negocio
                     {
                         try
                         {
+                            datos.cerrarConexion();
+                            datos.abrirConexion();
                             datos.setearConsulta("UPDATE Clientes " +
                                 "SET Nombre = @nombre, Apellido = @apellido, Email = @email, Direccion = @direccion, Ciudad = @ciudad, CP = @cp " +
                                     "WHERE Documento = @documento");
@@ -49,7 +51,10 @@ namespace negocio
                     }
                     else
                     {
-
+                        try
+                        {
+                        datos.cerrarConexion();
+                        datos.abrirConexion();
                         datos.setearConsulta("insert into Clientes (Documento, Nombre, Apellido, Email, Direccion, Ciudad, CP) " +
                             "values (@documento, @nombre, @apellido, @email, @direccion, @ciudad, @cp)");
                         datos.setearParametro("@documento", cliente.documento);
@@ -59,8 +64,14 @@ namespace negocio
                         datos.setearParametro("@direccion", cliente.direccion);
                         datos.setearParametro("@ciudad", cliente.ciudad);
                         datos.setearParametro("@cp", cliente.codigoPostal);
-                        datos.ejecutarAccion();
+                        datos.ejecutarAccion();                        
+                        }
+                        catch (Exception ex)
+                        {
 
+                            throw ex;
+                        }
+                        finally { datos.cerrarConexion(); }
                     }
                 }             
 
