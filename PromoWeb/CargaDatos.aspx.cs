@@ -19,6 +19,20 @@ namespace PromoWeb
 
         protected void btnParticipa_Click(object sender, EventArgs e)
         {
+            Cliente cliente = new Cliente();
+            cliente.documento = int.Parse(txtDNI.Text);
+            cliente.nombre = txtNombre.Text;
+            cliente.apellido = txtApellido.Text;
+            cliente.email = txtEmail.Text;
+            cliente.direccion = txtDireccion.Text;
+            cliente.ciudad = txtCiudad.Text;
+            cliente.codigoPostal = int.Parse(txtCP.Text);
+
+            ClienteNegocio negocio = new ClienteNegocio();
+            negocio.cargarCliente(cliente, Session["voucher"].ToString(), (Session["id"].ToString()));
+            
+
+
             Response.Redirect("Default.aspx");
         }
 
