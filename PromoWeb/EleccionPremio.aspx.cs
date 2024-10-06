@@ -13,20 +13,23 @@ namespace PromoWeb
     {
         public List<Articulo> ListaArticulos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
-        {
-            
+        {           
             ArticuloNegocio negocio = new ArticuloNegocio();
             ListaArticulos = negocio.listarPremios();
+            if (!IsPostBack)
+            {
+                rptArticulos.DataSource = ListaArticulos;
+                rptArticulos.DataBind();
+            }
         }
 
         protected void btnEleccion_Click(object sender, EventArgs e)
         {
+            Button btn = (Button)sender;
+            string premioId = btn.CommandArgument;
+            Session.Add("Id",premioId);
             Response.Redirect("CargaDatos.aspx");
         }
 
-        protected void btnDetalle_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Detalle.aspx");
-        }
     }
 }

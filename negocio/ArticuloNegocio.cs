@@ -11,6 +11,7 @@ namespace negocio
 {
     public class ArticuloNegocio
     {
+
         public List<Articulo> listarPremios()
         {
             List<Articulo> lista = new List<Articulo>();
@@ -403,5 +404,7 @@ namespace negocio
             
             return false;
         }
+
+        
     }
 }
