@@ -28,6 +28,11 @@ namespace PromoWeb
             {
                 Response.Redirect("EleccionPremio.aspx",false);
             }
+            else
+            {
+                lblError.Text = "El voucher es incorrecto o ya ha sido utilizado ";
+            }
+            
 
 
             
