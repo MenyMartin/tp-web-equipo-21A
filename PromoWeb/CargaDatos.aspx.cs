@@ -73,7 +73,7 @@ namespace PromoWeb
             else { lblAvisoDireccion.Visible = false; cliente.direccion = txtDireccion.Text; }
 
 
-            if (string.IsNullOrWhiteSpace(txtCiudad.Text) || !Regex.IsMatch(txtCiudad.Text, @"^[a-zA-Z]+$"))
+            if (string.IsNullOrWhiteSpace(txtCiudad.Text) || !Regex.IsMatch(txtCiudad.Text, @"^[a-zA-Z\s]+$"))
             {
                 lblAvisoCiudad.Text = "Por favor, ingrese un valor válido.";
                 lblAvisoCiudad.ForeColor = System.Drawing.Color.Red;
@@ -97,10 +97,11 @@ namespace PromoWeb
 
             ClienteNegocio negocio = new ClienteNegocio();
             negocio.cargarCliente(cliente, Session["voucher"].ToString(), (Session["id"].ToString()));
+
+
+            string script = "alert('Registro exitoso. Ya estas participando del sorteo'); window.location='Default.aspx';";
+            ClientScript.RegisterStartupScript(this.GetType(), "alert", script, true);
             
-
-
-            Response.Redirect("Default.aspx");
         }
 
         protected void btnDNI_Click(object sender, EventArgs e)
